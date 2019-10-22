@@ -1,0 +1,29 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="container">
+    <br>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-md-4">
+            <h1>List of {{ category.name }}</h1>
+        </div>
+
+        <div class="col-md-8">
+            <button type="button" class="btn btn-outline-primary"><a href="/category/pitch/new/{{ category.id }}"> Add Pitch</a></button>
+
+        </div>
+    </div>
+
+    {% for pitch in pitch %}
+    <div class="card">
+        <div class="card-body">
+            <a href="/pitch/{{ pitch.id }}">
+                <h3>{{ pitch.pitch}}</h3>
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+{% endblock %}
