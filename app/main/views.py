@@ -1,24 +1,27 @@
 from flask import render_template,redirect,url_for
-from . import main
+from .import main
 from flask_login import login_required,current_user
 from .forms import CategoryForm,PitchForm,CommentForm
 from ..models import Category,Pitch,Comment
 
-#Views
+# Views
 @main.route('/')
 def index():
+
     '''
-    view root page function that returns the index page and its data
+    View root page function that returns the index page and its data
     '''
     category=Category.get_categories()
-    
+
+
     title = "Welcome | One Minute Pitch"
-    return render_template('index.html', title=title, category=category)
+    return render_template('index.html',title=title, category=category)
+
 
 @main.route('/category/new', methods=['GET', 'POST'])
 @login_required
 def profile_category():
-    from = CategoryForm()
+    form = CategoryForm()
     if form.validate_on_submit():
         name = form.name.data
         profile_category = Category(name=name)
@@ -27,14 +30,15 @@ def profile_category():
     title = 'New Pitch Category'
     return render_template('profile_category.html', category_form=form)
 
+
 @main.route('/category/<int:id>')
 def category(id):
     category = Category.query.get(id)
     pitch = Pitch.query.filter_by(category_id=id)
-    
-    title = f'{category.name}page'
-    
-    return render_template('category.html',title=title, category=category, pitch=pitch)
+
+    title = f'{category.name} page'
+
+    return render_template('category.html',title=title, category=category,pitch=pitch)
 
 @main.route('/category/pitch/new/<int:id>', methods=['GET', 'POST'])
 @login_required
@@ -61,11 +65,13 @@ def pitch(id):
     title = f'Pitch { pitch.id }'
     return render_template('pitch.html',title=title, pitch=pitch, comment=comment)
 
+
 @main.route('/comment/new/<int:id>', methods=['GET', 'POST'])
 @login_required
 def new_comment(id):
     pitch = Pitch.query.get(id)
     # comment = Comment.query.get(pitch_id)
+
     form = CommentForm()
     if form.validate_on_submit():
         comment = form.comment.data
