@@ -5,7 +5,7 @@ class Config:
     '''
     General configuration parent class
     '''
-    # SQLALCHEMY_DATABASE_URI = os.environ.get('DATA_URI')
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATA_URI')
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     SECRET_KEY = os.environ.get('SECRET_KEY')
     DATABASE_PASS = os.environ.get('DATABASE_PASS')
